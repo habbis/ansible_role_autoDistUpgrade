@@ -1,5 +1,4 @@
 ---
-
 - name: Install a list of packages
   apt:
     pkg:
@@ -31,3 +30,4 @@
     upgrade: dist
     update_cache: yes
     dpkg_options: 'force-confdef,force-confold'
+    
