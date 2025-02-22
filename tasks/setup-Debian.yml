@@ -1,10 +1,15 @@
 ---
 - name: Install a list of packages
-  apt:
+  ansible.builtin.apt:
     pkg:
       - screen
       - apt-transport-https
     update_cache: yes
+
+- name: copy /etc/apt/sources.list
+  ansible.builtin.copy:
+    src: /etc/apt/sources.list
+    dest: /etc/apt/bk_sources.list
 
 - name: set debian base repo for "{{ debian_release }}"
   ansible.builtin.template:
@@ -16,17 +21,17 @@
   when: (ansible_distribution == "Debian")
 
 - name: apt update to get new package for dist-upgrade
-  apt:
+  ansible.builtin.apt:
     update_cache: yes
 
 - name: set env noninteractive
-  shell: env DEBIAN_FRONTEND=noninteractive
+  ansible.builtin.shell: env DEBIAN_FRONTEND=noninteractive
 
 - name: set env apt list changes to mail
-  shell: env APT_LISTCHANGES_FRONTEND=mail
+  ansible.builtin.shell: env APT_LISTCHANGES_FRONTEND=mail
 
 - name: upgrade to "{{ debian_release }}"
-  apt:
+  ansible.builtin.apt:
     upgrade: dist
     update_cache: yes
     dpkg_options: 'force-confdef,force-confold'
