@@ -4,4 +4,5 @@
 #debian_release: stretch
 #debian_release: buster
 #debian_release: bullseye
-debian_release: bookworm
+#debian_release: bookworm
+debian_release: trixie
